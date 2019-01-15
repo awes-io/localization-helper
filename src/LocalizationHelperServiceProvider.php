@@ -45,6 +45,7 @@ class LocalizationHelperServiceProvider extends ServiceProvider
      * Get the services provided by the provider.
      *
      * @return array
+     * @codeCoverageIgnore
      */
     public function provides()
     {

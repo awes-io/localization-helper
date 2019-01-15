@@ -19,4 +19,7 @@
             <directory>src/</directory>
         </whitelist>
     </filter>
+    <!--<logging>-->
+        <!--<log type="coverage-html" target="./tests/report" lowUpperBound="50" highLowerBound="80" />-->
+    <!--</logging>-->
 </phpunit>

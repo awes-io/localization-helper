@@ -1,7 +1,5 @@
 <?php
 
-use AwesIO\LocalizationHelper\Facades\LocalizationHelper;
-
 if (!function_exists('_p')) {
     /**
      * Translate the given message
