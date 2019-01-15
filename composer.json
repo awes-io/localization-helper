@@ -1,0 +1,50 @@
+{
+    "name": "awes-io/localization-helper",
+    "description": ":description",
+    "license": "GPL-3.0-only",
+    "authors": [
+        {
+            "name": "AwesCRM",
+            "email": "info@awescrm.de",
+            "homepage": "https://awescrm.de/"
+        }
+    ],
+    "homepage": "https://www.awes.io/packages/localizationhelper",
+    "keywords": ["Laravel", "LocalizationHelper"],
+    "require": {
+        "illuminate/support": "~5"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~7.0",
+        "mockery/mockery": "^1.1",
+        "orchestra/testbench": "~3.0",
+        "sempro/phpunit-pretty-print": "^1.0",
+        "mikey179/vfsStream": "^1.6"
+    },
+    "autoload": {
+        "psr-4": {
+            "AwesIO\\LocalizationHelper\\": "src/"
+        },
+        "files": [
+            "src/helpers.php"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "AwesIO\\LocalizationHelper\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit --colors=always"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "AwesIO\\LocalizationHelper\\LocalizationHelperServiceProvider"
+            ],
+            "aliases": {
+                "LocalizationHelper": "AwesIO\\LocalizationHelper\\Facades\\LocalizationHelper"
+            }
+        }
+    }
+}
