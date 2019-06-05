@@ -43,6 +43,8 @@ class LocalizationHelper implements LocalizationHelperContract
 
             $filename = $path[0];
 
+            if (! isset($path[1])) return __($key, $placeholders);
+
             $this->translator->addLines([$key => $default], $fallbackLocale);
 
             $this->writeToLangFile(
@@ -87,18 +89,17 @@ class LocalizationHelper implements LocalizationHelperContract
 
         $language_file = $this->basePath . "/{$locale}/{$filename}.php";
 
-        if (($fp = fopen($language_file, 'w')) !== FALSE) {
+        try {
+            if (($fp = fopen($language_file, 'w')) !== FALSE) {
             
-            fputs($fp, $header . $this->var_export54($translations) . ";\n");
-            
-            fclose($fp);
-
-            return true;
-
-        } else {
-            return false;
-        }
-    }
+                fputs($fp, $header . $this->var_export54($translations) . ";\n");
+                
+                fclose($fp);
+    
+                return true;
+            }
+        } catch (\Exception $e) {
+            return false;}}
 
     /**
      * var_export to php5.4 array syntax

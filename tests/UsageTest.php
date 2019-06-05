@@ -203,6 +203,48 @@ class StringUsageTest extends TestCase
 
         $this->assertEquals(_p($key, uniqid()), $key);
     }
+    
+    public function testThrowsErrorIfLocalizationFileCantBeOpened()
+    {
+        $key = ($filename = uniqid()) . '.' . uniqid();
+
+        vfsStream::newFile($filename . '.php', 0000)
+                 ->withContent($content = 'notoverwritten')
+                 ->at($this->root->getChild('root/resources/lang/en'));
+
+        $value = uniqid();
+
+        _p($key, $value);
+
+        $this->assertEquals($content, $this->root->getChild('root/resources/lang/en/'. $filename . '.php')->getContent());
+    }
+    
+    public function testExportsFileIfContentsBoolean()
+    {
+        $key = ($filename = uniqid()) . '.' . uniqid();
+
+        $value = true;
+
+        _p($key, $value);
+
+        $this->assertStringStartsWith('<?php', $this->root->getChild('root/resources/lang/en/'. $filename . '.php')->getContent());
+    }
+
+    public function testExportsFileIfContentsObject()
+    {
+        $key = ($filename = uniqid()) . '.' . uniqid();
+
+        $value = new \stdClass;
+
+        _p($key, $value);
+
+        $this->assertStringStartsWith('<?php', $this->root->getChild('root/resources/lang/en/'. $filename . '.php')->getContent());
+    }
+
+    public function testHandlesCallsWithRootNameOnly()
+    {
+        $this->assertEquals('name', _p('name', 'test'));
+    }
 
     protected function getContents($filename)
     {
