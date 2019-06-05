@@ -1,16 +1,26 @@
 {
     "name": "awes-io/localization-helper",
-    "description": ":description",
-    "license": "GPL-3.0-only",
+    "description": "Package for convenient work with Laravel's localization features",
+    "type": "library",
+    "license": "MIT",
     "authors": [
-        {
-            "name": "AwesCRM",
-            "email": "info@awescrm.de",
-            "homepage": "https://awescrm.de/"
-        }
-    ],
-    "homepage": "https://www.awes.io/packages/localizationhelper",
-    "keywords": ["Laravel", "LocalizationHelper"],
+		{
+			"name": "Awescode GmbH",
+			"email": "info@awescode.de",
+			"homepage": "https://www.awescode.de",
+			"role": "Owner"
+		},
+		{
+			"name": "Galymzhan Begimov",
+			"email": "begimov@gmail.com",
+			"homepage": "https://github.com/begimov"
+		}
+	],
+    "support": {
+        "email": "support@awescode.de"
+      },
+    "homepage": "https://github.com/awes-io/localization-helper",
+    "keywords": ["Laravel", "php", "localization", "language", "locale", "translation"],
     "require": {
         "illuminate/support": "~5"
     },
@@ -32,7 +42,7 @@
         }
     },
     "scripts": {
-        "test": "vendor/bin/phpunit --colors=always"
+        "test": "vendor/bin/phpunit --colors=always --configuration phpunit.xml.dist --debug"
     },
     "extra": {
         "laravel": {

@@ -17,7 +17,7 @@ class StringUsageTest extends TestCase
     /**
      * set up test environmemt
      */
-    public function setUp()
+    public function setUp() :void
     {
         parent::setUp();
 
