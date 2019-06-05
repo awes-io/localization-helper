@@ -1,5 +1,7 @@
 # Localization Helper
 
+Package for convenient work with Laravel's localization features and fast language files generation.
+
 ## Installation
 
 Via Composer
@@ -8,9 +10,10 @@ Via Composer
 $ composer require awes-io/localization-helper
 ```
 
-In Laravel 5.5, the service provider and facade will automatically get registered. For older versions of the framework, follow the steps below:
+In Laravel 5.5+, service provider and facade will be automatically registered. For older versions, follow the steps below:
 
-Register the service provider in config/app.php
+Register service provider in `config/app.php`:
+
 ```php
 'providers' => [
 // [...]
@@ -18,7 +21,7 @@ Register the service provider in config/app.php
 ],
 ```
 
-You may also register the LaravelLocalization facade:
+You may also register `LaravelLocalization` facade:
 
 ```php
 'aliases' => [
@@ -31,7 +34,7 @@ You may also register the LaravelLocalization facade:
 
 ### Config Files
 
-In order to edit the default configuration for this package you may execute:
+In order to edit default configuration you may execute:
 
 ```
 php artisan vendor:publish --provider="AwesIO\LocalizationHelper\LocalizationHelperServiceProvider"
@@ -41,23 +44,52 @@ After that, `config/localizationhelper.php` will be created.
 
 ## Usage
 
-Package registers global helper function:
+Package registers global helper function `_p($file_key, $default, $placeholders)`:
 
 ```php
-_p('auth.login', 'Login');
+_p('auth.login', 'Login'); // "Login"
 ```
 
-Placeholders support:
+It will create new localization file `auth.php` (if it doesn't exist) and write second parameter as language string under `login` key:
+
+```php
+return [
+    "login" => "Login"
+];
+```
+
+On second call with same file/key `_p('auth.login')`, localization string will be returned, file will remain untouched.
+
+Placeholders are also supported:
 
 ```php
 _p(
     'mail.invitation', 
     'You’re invited to join :company company workspace', 
-    ['company' => $this->data['company']]
+    ['company' => 'Awesio']
 );
 ```
 
-If key is returned, it means that string already exists and you trying to add new one using it as array.
+If key is returned, it means that string already exists in localization file and you are trying to add new one using its value as an array.
+
+```php
+// in localization file.php
+return [
+    "test" => "Test string"
+];
+
+_p('file.test.new', 'Test string'); // will return "file.test.new"
+
+_p('file.test_2.new', 'Test string'); // will return "Test string"
+
+// and modify localization file:
+return [
+    "test" => "Test string",
+    "test_2" => [
+        "new" => "Test string"
+    ]
+];
+```
 
 ## Testing
 
