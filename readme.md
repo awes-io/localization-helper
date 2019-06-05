@@ -1,19 +1,19 @@
 # LocalizationHelper
 
-[![Coverage report](http://gitlab.awescode.com/awes-io/localization-helper/badges/master/coverage.svg)](https://www.awes.io/)
-[![Build status](http://gitlab.awescode.com/awes-io/localization-helper/badges/master/build.svg)](https://www.awes.io/)
-[![Composer Ready](https://www.awc.wtf/awes-io/localization-helper/status.svg)](https://www.awes.io/)
-[![Downloads](https://www.awc.wtf/awes-io/localization-helper/downloads.svg)](https://www.awes.io/)
-[![Last version](https://www.awc.wtf/awes-io/localization-helper/version.svg)](https://www.awes.io/)
+[![Coverage report](https://repo.pkgkit.com/4GBWO/awes-io/localization-helper/badges/master/coverage.svg)](https://www.awes.io/)
+[![Build status](https://repo.pkgkit.com/4GBWO/awes-io/localization-helper/badges/master/build.svg)](https://www.awes.io/)
+[![Composer Ready](https://www.pkgkit.com/4GBWO/awes-io/auth/status.svg)](https://www.awes.io/)
+[![Downloads](https://www.pkgkit.com/4GBWO/awes-io/auth/downloads.svg)](https://www.awes.io/)
+[![Last version](https://www.pkgkit.com/4GBWO/awes-io/auth/version.svg)](https://www.awes.io/)
 
-This is where your description should go. Take a look at [contributing.md](contributing.md) to see a to do list.
+Package for convenient work with Laravel's localization features. Take a look at [contributing.md](contributing.md) to see a to do list.
 
 ## Installation
 
 Via Composer
 
 ``` bash
-$ composer require AwesIO/localizationhelper
+$ composer require awes-io/localization-helper
 ```
 
 In Laravel 5.5, the service provider and facade will automatically get registered. For older versions of the framework, follow the steps below:
@@ -87,21 +87,9 @@ If you discover any security related issues, please email info@awescrm.de instea
 
 ## Credits
 
-- [AwesCRM][link-author]
-- [All Contributors][link-contributors]
+- [Galymzhan Begimov](https://github.com/begimov)
+- [All Contributors](contributing.md)
 
 ## License
 
-GNU General Public License v3.0. Please see the [license file](license.md) for more information.
-
-[ico-version]: https://img.shields.io/packagist/v/AwesIO/localizationhelper.svg?style=flat-square
-[ico-downloads]: https://img.shields.io/packagist/dt/AwesIO/localizationhelper.svg?style=flat-square
-[ico-travis]: https://img.shields.io/travis/AwesIO/localizationhelper/master.svg?style=flat-square
-[ico-styleci]: https://styleci.io/repos/12345678/shield
-
-[link-packagist]: https://packagist.org/packages/AwesIO/localizationhelper
-[link-downloads]: https://packagist.org/packages/AwesIO/localizationhelper
-[link-travis]: https://travis-ci.org/AwesIO/localizationhelper
-[link-styleci]: https://styleci.io/repos/12345678
-[link-author]: https://github.com/AwesIO
-[link-contributors]: ../../contributors]
+[MIT](http://opensource.org/licenses/MIT)

@@ -5,7 +5,7 @@
 Via Composer
 
 ``` bash
-$ composer require AwesIO/localizationhelper
+$ composer require awes-io/localization-helper
 ```
 
 In Laravel 5.5, the service provider and facade will automatically get registered. For older versions of the framework, follow the steps below:
