@@ -55,7 +55,7 @@ class LocalizationHelper implements LocalizationHelperContract
             $this->translator->addLines([$key => $default], $locale);
             $this->writeToLangFile(
                 $locale,
-                $this->translator->get($path[0]),
+                $this->translator->get($path[0], [], $locale),
                 $path[0]
             );
 
