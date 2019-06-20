@@ -13,8 +13,15 @@
 		{
 			"name": "Galymzhan Begimov",
 			"email": "begimov@gmail.com",
-			"homepage": "https://github.com/begimov"
-		}
+			"homepage": "https://github.com/begimov",
+            "role": "Developer"
+		},
+        {
+            "name": "Ivan Slesarenko",
+            "email": "info@boomdraw.com",
+            "homepage": "https://boomdraw.com",
+            "role": "Developer"
+        }
 	],
     "support": {
         "email": "support@awescode.de"

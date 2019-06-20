@@ -50,13 +50,21 @@ Package registers global helper function `_p($file_key, $default, $placeholders)
 _p('auth.login', 'Login'); // "Login"
 ```
 
-It will create new localization file `auth.php` (if it doesn't exist) and write second parameter as language string under `login` key:
+It will create new localization file `auth.php` (if it doesn't exist) for fallback locale and write second parameter as language string under `login` key:
 
 ```php
 return [
     "login" => "Login"
 ];
 ```
+
+Array can be used as default value:
+
+```php
+_p('auth.login', ['en' => 'Login', 'fr' => 'Connexion']);
+```
+
+It will create files `auth.php` for every locale from array keys and write array value as language string.
 
 On second call with same file/key `_p('auth.login')`, localization string will be returned, file will remain untouched.
 

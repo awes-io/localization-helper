@@ -20,7 +20,7 @@ class LocalizationHelper implements LocalizationHelperContract
 
         $this->translator = app('translator');
     }
-    
+
     /**
      * Translate the given message
      *
@@ -31,75 +31,78 @@ class LocalizationHelper implements LocalizationHelperContract
      */
     public function trans($key, $default = null, $placeholders = [])
     {
-        if (gettype(__($key)) === 'array') {
+        $translation = __($key, $placeholders);
+        if (is_array($translation)) {
             return $key;
         }
+        if (config('app.debug')) {
+            if (!is_array($default)) {
+                $default = [$this->translator->getFallback() => $default];
+            }
+            foreach ($default as $locale => $item) {
+                $this->updateTranslation($key, $item, $locale);
+            }
+            $translation = __($key, $placeholders);
+        }
 
-        $fallbackLocale = $this->translator->getFallback();
+        return $translation;
+    }
 
-        if ($this->canBeUpdated($default, $key, $fallbackLocale)) {
-
-            $path = explode('.', $key);
-
-            $filename = $path[0];
-
-            if (! isset($path[1])) return __($key, $placeholders);
-
-            $this->translator->addLines([$key => $default], $fallbackLocale);
-
+    private function updateTranslation($key, $default, $locale)
+    {
+        $path = explode('.', $key);
+        if ($this->canBeUpdated($default, $key, $locale) && !empty($path[1])) {
+            $this->translator->addLines([$key => $default], $locale);
             $this->writeToLangFile(
-                $fallbackLocale, 
-                $this->translator->get($filename),
-                $filename
+                $locale,
+                $this->translator->get($path[0], [], $locale),
+                $path[0]
             );
 
         }
-        return __($key, $placeholders);
     }
 
-    private function canBeUpdated($default, $key, $fallbackLocale)
+    private function canBeUpdated($default, $key, $locale)
     {
+        if (!$default || $this->translator->hasForLocale($key, $locale)) {
+            return false;
+        }
         $parsedKey = $this->translator->parseKey($key);
-
         [$namespace, $path, $item] = $parsedKey;
-
         $items = array_filter(explode('.', $item));
-
         foreach ($items as $item) {
             $path .= '.' . $item;
-            if ($this->translator->has($path) && gettype($this->translator->get($path)) === 'string') {
+            if ($this->translator->hasForLocale($path, $locale)
+                && is_string($this->translator->get($path, [], $locale))) {
                 return false;
             }
         }
 
-        return $default && config('app.debug')
-            && !$this->translator->hasForLocale($key, $fallbackLocale);
+        return true;
     }
 
     /**
      * Write to language file
-     * 
+     *
      * @param $locale
      * @param $translations
      * @return bool
      */
     private function writeToLangFile($locale, $translations, $filename)
     {
-        $header = "<?php\n\nreturn ";
-
-        $language_file = $this->basePath . "/{$locale}/{$filename}.php";
-
+        $file = $this->basePath . "/{$locale}/{$filename}.php";
         try {
-            if (($fp = fopen($language_file, 'w')) !== FALSE) {
-            
+            if (($fp = fopen($file, 'w')) !== FALSE) {
+                $header = "<?php\n\nreturn ";
                 fputs($fp, $header . $this->var_export54($translations) . ";\n");
-                
                 fclose($fp);
-    
+
                 return true;
             }
         } catch (\Exception $e) {
-            return false;}}
+            return false;
+        }
+    }
 
     /**
      * var_export to php5.4 array syntax
@@ -112,26 +115,19 @@ class LocalizationHelper implements LocalizationHelperContract
     private function var_export54($var, $indent = "")
     {
         switch (gettype($var)) {
-
             case "string":
                 return '"' . addcslashes($var, "\\\$\"\r\n\t\v\f") . '"';
-
             case "array":
                 $indexed = array_keys($var) === range(0, count($var) - 1);
-
                 $r = [];
-
                 foreach ($var as $key => $value) {
                     $r[] = "$indent    "
                         . ($indexed ? "" : $this->var_export54($key) . " => ")
                         . $this->var_export54($value, "$indent    ");
                 }
-
                 return "[\n" . implode(",\n", $r) . "\n" . $indent . "]";
-
             case "boolean":
                 return $var ? "TRUE" : "FALSE";
-
             default:
                 return var_export($var, TRUE);
         }
