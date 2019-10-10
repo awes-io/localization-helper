@@ -29,7 +29,7 @@
     "homepage": "https://github.com/awes-io/localization-helper",
     "keywords": ["Laravel", "php", "localization", "language", "locale", "translation"],
     "require": {
-        "illuminate/support": "~5"
+        "illuminate/support": "~5|~6"
     },
     "require-dev": {
         "phpunit/phpunit": "~7.0",
